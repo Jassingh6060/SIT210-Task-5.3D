@@ -6,7 +6,7 @@ import time
 import re
 RPi.GPIO.setmode(RPi.GPIO.BCM)
 
-led = LED(18)
+led = LED(24)
 blink = 0.25
 
 def mdot():
