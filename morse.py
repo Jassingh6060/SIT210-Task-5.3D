@@ -1,13 +1,13 @@
+import RPi.GPIO as GPIO
+import time
 from tkinter import *
 import tkinter.font
 from gpiozero import LED 
-import RPi.GPIO
-import time
-import re
-RPi.GPIO.setmode(RPi.GPIO.BCM)
 
-led = LED(24)
-blink = 0.25
+GPIO.setmode(RPi.GPIO.BOARD)
+
+led = LED(18)
+blink = time.sleep(0.25)
 
 def mdot():
     led.on()
@@ -62,22 +62,21 @@ def Convert_to_morsecode(name):
 
 
 def Write():
-    name = inputtxt.get("1.0", "end-1c") 
+    name = inputtxt.get(1.0, "end-1c") 
     ename = Convert_to_morsecode(name)
     print(ename)
-    output.insert(END, str(ename))
-    pattern = re.compile('.')
-    if(pattern.match(ename)):
-        [mdot() for i in ename]
+    morsename = name
+    if(len(name) >12):
+       return 'invalid'
     else:
-        [mdash() for i in ename]
+       return name
+
 
 
 win = Tk()
 win.title("Morse Code GUI")
+win.geometry('400x200')
+
 l = label(text = "covert name to Morse Code")
 inputtxt = Text(win, height = 10, width = 20, bg = "light blue")
-
-output = Text(win, height = 10, width = 20, bg = "light green")
-
-MorseButton = Button(win, height = 4, width = 20, text = "translate name to Morse Code", command = Lambda.Write())
+MorseButton = Button(win, height = 4, width = 20, text = "print", command = Convert_to_morsecode())
